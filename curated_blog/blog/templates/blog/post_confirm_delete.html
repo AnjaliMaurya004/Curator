@@ -1,0 +1,298 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Post - Curated</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .delete-container {
+            max-width: 600px;
+            width: 100%;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delete-card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .delete-icon-wrapper {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+        }
+
+        .delete-icon {
+            font-size: 3.5rem;
+            color: #ef4444;
+        }
+
+        .delete-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .delete-message {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .warning-box i {
+            color: #ef4444;
+            margin-right: 10px;
+        }
+
+        .warning-box strong {
+            color: #991b1b;
+            font-size: 0.95rem;
+        }
+
+        .warning-box p {
+            color: #991b1b;
+            margin: 5px 0 0 0;
+            font-size: 0.9rem;
+        }
+
+        .post-info {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: left;
+            border: 2px solid #e2e8f0;
+        }
+
+        .post-info-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .post-info-title i {
+            color: var(--primary-color);
+        }
+
+        .post-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #64748b;
+            margin: 8px 0;
+            font-size: 0.95rem;
+        }
+
+        .post-meta-item i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-delete-confirm {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            font-weight: 600;
+            padding: 14px 35px;
+            border-radius: 12px;
+            border: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-delete-confirm:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-delete-confirm:active {
+            transform: translateY(0);
+        }
+
+        .btn-cancel {
+            background: #f3f4f6;
+            color: #4b5563;
+            font-weight: 600;
+            padding: 14px 35px;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-cancel:hover {
+            background: #e5e7eb;
+            border-color: #d1d5db;
+            transform: translateY(-2px);
+            color: #374151;
+        }
+
+        .btn-cancel:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 576px) {
+            .delete-card {
+                padding: 40px 25px;
+            }
+
+            .delete-title {
+                font-size: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-delete-confirm,
+            .btn-cancel {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="delete-container">
+        <div class="delete-card">
+            <div class="delete-icon-wrapper">
+                <i class="fas fa-exclamation-triangle delete-icon"></i>
+            </div>
+            
+            <h1 class="delete-title">Delete Blog Post?</h1>
+            
+            <p class="delete-message">
+                This action cannot be undone. Are you sure you want to permanently delete this post?
+            </p>
+
+            <div class="warning-box">
+                <div>
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Warning: This is permanent!</strong>
+                </div>
+                <p>Once deleted, this post and all its data will be removed from the database forever.</p>
+            </div>
+
+            <div class="post-info">
+                <div class="post-info-title">
+                    <i class="fas fa-file-alt"></i>
+                    {{ post.title }}
+                </div>
+                <div class="post-meta-item">
+                    <i class="fas fa-user"></i>
+                    <span>Author: <strong>{{ post.author.username }}</strong></span>
+                </div>
+                <div class="post-meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Created: <strong>{{ post.created_at|date:"F d, Y" }}</strong></span>
+                </div>
+                <div class="post-meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Time: <strong>{{ post.created_at|date:"g:i A" }}</strong></span>
+                </div>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="button-group">
+                    <button type="submit" class="btn-delete-confirm">
+                        <i class="fas fa-trash"></i>
+                        Yes, Delete Permanently
+                    </button>
+                    <a href="{% url 'blog:post_detail' post.slug %}" class="btn-cancel">
+                        <i class="fas fa-arrow-left"></i>
+                        No, Keep It
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
