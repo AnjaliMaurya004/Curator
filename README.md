@@ -53,5 +53,16 @@ python manage.py runserver
 
 7. Open browser: `http://127.0.0.1:8000/`
 
+![welcome](curated_blog/assets/screenshots/welcome.png)
+![Signup](curated_blog/assets/screenshots/signup.png)
+![log](curated_blog/assets/screenshots/login.png)
+![Home](curated_blog/assets/screenshots/home.png)
+![Home](curated_blog/assets/screenshots/home1.png)
+![post](curated_blog/assets/screenshots/myposts.png)
+![add](curated_blog/assets/screenshots/addpost.png)
+![Home](curated_blog/assets/screenshots/add.png)
+
+
+
 
 
